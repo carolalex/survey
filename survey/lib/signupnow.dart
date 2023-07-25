@@ -11,10 +11,18 @@ class _MyAppState extends State<Signup> {
   final _formkey = GlobalKey<FormState>();
   bool? _checkbox = false;
   bool _obscureText = true;
+  final _emailFocusNode = FocusNode();
+  final _passwordFocusNode = FocusNode();
 
   _MyAppState createState() => _MyAppState();
 
   @override
+  void dispose() {
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -61,6 +69,12 @@ class _MyAppState extends State<Signup> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20, left: 15, right: 15),
                   child: TextFormField(
+                    focusNode: _emailFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (value) {
+                      _emailFocusNode.unfocus();
+                      FocusScope.of(context).requestFocus(_passwordFocusNode);
+                    },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Email';
@@ -82,6 +96,11 @@ class _MyAppState extends State<Signup> {
                   padding:
                       const EdgeInsets.only(left: 15.0, right: 15.0, top: 30.0),
                   child: TextFormField(
+                    focusNode: _passwordFocusNode,
+                    textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (value) {
+                      _passwordFocusNode.unfocus();
+                    },
                     decoration: InputDecoration(
                       labelText: 'Enter password',
                       suffixIcon: GestureDetector(
