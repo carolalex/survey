@@ -68,6 +68,10 @@ flutter:
     - images/Group 64.png
     - images/Group 65.png
     - images/Group 66.png
+    - images/google.jpg
+    - images/twitter.jpg
+    - images/link.jpg
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'signupnow.dart';
 
 class Survey extends StatefulWidget {
   const Survey({super.key});
@@ -118,7 +119,14 @@ class _SurveyState extends State<Survey> {
                   right: 10,
                   bottom: 20,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Signup(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.purple,
                         minimumSize: const Size(300, 50),
