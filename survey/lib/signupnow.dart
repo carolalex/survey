@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'shoppylist.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -28,6 +29,7 @@ class _MyAppState extends State<Signup> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
           child: Form(
             key: _formkey,
@@ -186,9 +188,10 @@ class _MyAppState extends State<Signup> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formkey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('procssing data'),
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ShoppyList(),
                           ),
                         );
                       }

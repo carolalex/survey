@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 //import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 //import 'package:flutter_carousel_slider/carousel_slider.dart';
@@ -19,21 +21,19 @@ class _SurveyState extends State<Survey> {
   @override
   Widget build(BuildContext context) {
     List<Widget> carousalItems = [
-      Expanded(
-        child: Column(
-          children: [
-            const SizedBox(height: 100),
-            Image.asset('images/Group 64.png'),
-            const Text(
-              "Take a Short Survey",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const Text(
-              "on the issues",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            )
-          ],
-        ),
+      Column(
+        children: [
+          const SizedBox(height: 100),
+          Image.asset('images/Group 64.png'),
+          const Text(
+            "Take a Short Survey",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const Text(
+            "on the issues",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          )
+        ],
       ),
       Expanded(
         child: Column(
@@ -76,6 +76,7 @@ class _SurveyState extends State<Survey> {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.purple,
       body: Column(
         children: [
