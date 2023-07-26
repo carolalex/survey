@@ -14,50 +14,62 @@ class Survey extends StatefulWidget {
 
 class _SurveyState extends State<Survey> {
   int _currentPageIndex = 0;
+  final CarouselController _carouselController = CarouselController();
 
   @override
   Widget build(BuildContext context) {
     List<Widget> carousalItems = [
-      Column(
-        children: [
-          const SizedBox(height: 100),
-          Image.asset('images/Group 64.png'),
-          const Text(
-            "Take a Short Survey",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const Text(
-            "on the issues",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          )
-        ],
+      Expanded(
+        child: Column(
+          children: [
+            const SizedBox(height: 100),
+            Image.asset('images/Group 64.png'),
+            const Text(
+              "Take a Short Survey",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const Text(
+              "on the issues",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            )
+          ],
+        ),
       ),
-      Column(
-        children: [
-          const SizedBox(height: 100),
-          Image.asset('images/Group 65.png'),
-        ],
+      Expanded(
+        child: Column(
+          children: [
+            const SizedBox(height: 100),
+            Image.asset('images/Group 65.png'),
+          ],
+        ),
       ),
-      Column(
-        children: [
-          const SizedBox(
-            height: 100,
-          ),
-          Image.asset('images/Group 66.png'),
-        ],
+      Expanded(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 100,
+            ),
+            Image.asset('images/Group 66.png'),
+          ],
+        ),
       )
     ];
 
     List<Widget> _buildCarouselDots() {
       return List<Widget>.generate(carousalItems.length, (index) {
-        return Container(
-          width: _currentPageIndex == index ? 24 : 8,
-          height: 8,
-          margin: const EdgeInsets.symmetric(horizontal: 4),
-          decoration: BoxDecoration(
-            //  shape: BoxShape.circle,
-            borderRadius: BorderRadius.circular(20),
-            color: _currentPageIndex == index ? Colors.purple : Colors.grey,
+        return GestureDetector(
+          onTap: () {
+            _carouselController.animateToPage(index);
+          },
+          child: Container(
+            width: _currentPageIndex == index ? 24 : 8,
+            height: 8,
+            margin: const EdgeInsets.symmetric(horizontal: 4),
+            decoration: BoxDecoration(
+              //  shape: BoxShape.circle,
+              borderRadius: BorderRadius.circular(20),
+              color: _currentPageIndex == index ? Colors.purple : Colors.grey,
+            ),
           ),
         );
       });
@@ -82,6 +94,7 @@ class _SurveyState extends State<Survey> {
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 80),
                   child: CarouselSlider(
+                    carouselController: _carouselController,
                     items: carousalItems,
                     options: CarouselOptions(
                       autoPlay: false,
@@ -150,42 +163,63 @@ class _SurveyState extends State<Survey> {
               ),
             ],
           ),
-          const SizedBox(height: 50),
-          Padding(
-            padding: const EdgeInsets.only(right: 50.0, left: 50.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                if (_currentPageIndex >= 1)
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _currentPageIndex--;
-                      });
-                      //_carouselController.previousPage();
-                    },
-                    icon: const Icon(
-                      FontAwesomeIcons.arrowLeftLong,
-                      color: Colors.white,
-                      size: 30,
+          //const SizedBox(height: 50),
+          Stack(
+            children: [
+              Container(
+                width: 500,
+                height: 70,
+                //color: Colors.red,
+              ),
+              if (_currentPageIndex >= 1)
+                Positioned(
+                  left: 30,
+                  bottom: 5,
+                  child: Container(
+                    //width: 180,
+                    height: 40,
+                    //color: Colors.pink,
+                    child: IconButton(
+                      onPressed: () {
+                        setState(
+                          () {
+                            _currentPageIndex--;
+                          },
+                        );
+                        _carouselController.previousPage();
+                      },
+                      icon: const Icon(
+                        FontAwesomeIcons.arrowLeftLong,
+                        color: Colors.white,
+                        size: 30,
+                      ),
                     ),
                   ),
-                if (_currentPageIndex < carousalItems.length - 1)
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _currentPageIndex++;
-                      });
-                      //_carouselController.nextPage();
-                    },
-                    icon: const Icon(
-                      FontAwesomeIcons.arrowRightLong,
-                      color: Colors.white,
-                      size: 30,
+                ),
+              if (_currentPageIndex < carousalItems.length - 1)
+                Positioned(
+                  right: 30,
+                  bottom: 5,
+                  child: Container(
+                    height: 40,
+                    //width: 100,
+                    //color: Colors.amber,
+                    child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _currentPageIndex++;
+                        });
+                        _carouselController.nextPage();
+                      },
+                      icon: const Icon(
+                        FontAwesomeIcons.arrowRightLong,
+                        color: Colors.white,
+                        size: 30,
+                      ),
                     ),
                   ),
-              ],
-            ),
+                ),
+            ],
           ),
         ],
       ),

@@ -23,6 +23,7 @@ class _MyAppState extends State<Signup> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -68,66 +69,95 @@ class _MyAppState extends State<Signup> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20, left: 15, right: 15),
-                  child: TextFormField(
-                    focusNode: _emailFocusNode,
-                    textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (value) {
-                      _emailFocusNode.unfocus();
-                      FocusScope.of(context).requestFocus(_passwordFocusNode);
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Email';
-                      }
-                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                          .hasMatch(value)) {
-                        return 'Please enter a valid email address';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {},
-                    decoration: const InputDecoration(
-                      labelText: 'Enter your Email',
-                      border: OutlineInputBorder(),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextFormField(
+                      focusNode: _emailFocusNode,
+                      textInputAction: TextInputAction.next,
+                      onFieldSubmitted: (value) {
+                        _emailFocusNode.unfocus();
+                        FocusScope.of(context).requestFocus(_passwordFocusNode);
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Email';
+                        }
+                        if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                            .hasMatch(value)) {
+                          return 'Please enter a valid email address';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {},
+                      decoration: const InputDecoration(
+                        labelText: '  Email', border: InputBorder.none,
+                        //border: OutlineInputBorder(),
+                      ),
                     ),
                   ),
                 ),
                 Padding(
                   padding:
                       const EdgeInsets.only(left: 15.0, right: 15.0, top: 30.0),
-                  child: TextFormField(
-                    focusNode: _passwordFocusNode,
-                    textInputAction: TextInputAction.done,
-                    onFieldSubmitted: (value) {
-                      _passwordFocusNode.unfocus();
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Enter password',
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _obscureText = !_obscureText;
-                          });
-                        },
-                        child: Icon(
-                          _obscureText
-                              ? Icons.visibility_off
-                              : Icons.visibility,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: const Offset(0, 3),
                         ),
-                      ),
-                      border: const OutlineInputBorder(),
+                      ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    obscureText: _obscureText,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Password";
-                      }
-                      if (value.length < 8) {
-                        return 'Password must be at least 8 characters long';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {},
+                    child: TextFormField(
+                      focusNode: _passwordFocusNode,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (value) {
+                        _passwordFocusNode.unfocus();
+                      },
+                      decoration: InputDecoration(
+                          labelText: '  Password',
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
+                            },
+                            child: Icon(
+                              _obscureText
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                          ),
+                          border: InputBorder.none
+                          //border: const OutlineInputBorder(),
+                          ),
+                      obscureText: _obscureText,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Password";
+                        }
+                        if (value.length < 8) {
+                          return 'Password must be at least 8 characters long';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {},
+                    ),
                   ),
                 ),
                 Padding(
@@ -182,7 +212,10 @@ class _MyAppState extends State<Signup> {
                           color: Colors.grey,
                         ),
                       ),
-                      const Text('(or)'),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 5.0, right: 5.0),
+                        child: Text('or'),
+                      ),
                       Expanded(
                         child: Container(
                           height: 1,
